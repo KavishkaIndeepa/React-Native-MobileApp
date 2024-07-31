@@ -1,17 +1,53 @@
+// PlaylistsScreen.tsx
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { useMusicPlayer } from './MusicPlayerContext';
 //@ts-ignore
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
 
 const PlaylistsScreen: React.FC = () => {
-  const { currentSong, play, pause, isPlaying } = useMusicPlayer();
+  const { currentSong, play, pause, isPlaying, setCurrentSong, addToFavorites, removeFromFavorites, favorites } = useMusicPlayer();
+  const navigation = useNavigation();
 
   const handlePlayPause = () => {
     if (isPlaying) {
       pause();
     } else {
       play();
+    }
+  };
+
+  const playNextSong = () => {
+    if (currentSong) {
+      //@ts-ignore
+      const nextIndex = (songs.findIndex((song) => song.id === currentSong.id) + 1) % songs.length;
+      //@ts-ignore
+      playSong(nextIndex);
+    }
+  };
+
+  const playPreviousSong = () => {
+    if (currentSong) {
+      //@ts-ignore
+      const prevIndex = (songs.findIndex((song) => song.id === currentSong.id) - 1 + songs.length) % songs.length;
+      //@ts-ignore
+      playSong(prevIndex);
+    }
+  };
+
+  const navigateToFavorites = () => {
+    //@ts-ignore
+    navigation.navigate('Favorites');
+  };
+
+  const handleFavoriteToggle = () => {
+    if (currentSong) {
+      if (favorites.find((song) => song.id === currentSong.id)) {
+        removeFromFavorites(currentSong);
+      } else {
+        addToFavorites(currentSong);
+      }
     }
   };
 
@@ -28,11 +64,13 @@ const PlaylistsScreen: React.FC = () => {
       <Image source={{ uri: currentSong.uri }} style={styles.currentSongImage} />
       <View style={styles.textContainer}>
         <Text style={styles.currentSongTitle}>{currentSong.filename}</Text>
-        <Text style={styles.currentSongArtist}>Arijit Singh</Text>
-        <Text style={styles.currentSongAlbum}>Brahmastra</Text>
+        <Text style={styles.currentSongArtist}>Artist Name</Text>
+        <Text style={styles.currentSongAlbum}>Album Name</Text>
       </View>
       <View style={styles.controls}>
-        <MaterialIcons name="favorite-border" style={styles.icon} />
+        <TouchableOpacity onPress={handleFavoriteToggle}>
+          <MaterialIcons name={favorites.find((song) => song.id === currentSong.id) ? "favorite" : "favorite-border"} style={styles.icon} />
+        </TouchableOpacity>
         <MaterialIcons name="info-outline" style={styles.icon} />
         <MaterialIcons name="playlist-add" style={styles.icon} />
         <MaterialIcons name="more-horiz" style={styles.icon} />
@@ -45,15 +83,15 @@ const PlaylistsScreen: React.FC = () => {
         <Text style={styles.totalTime}>4:28</Text>
       </View>
       <View style={styles.playbackControls}>
-       
+        <TouchableOpacity onPress={playPreviousSong}>
           <MaterialIcons name="skip-previous" style={styles.playbackIcon} />
-        
+        </TouchableOpacity>
         <TouchableOpacity onPress={handlePlayPause}>
           <MaterialIcons name={isPlaying ? "pause" : "play-arrow"} style={styles.playbackIcon} />
         </TouchableOpacity>
-        
+        <TouchableOpacity onPress={playNextSong}>
           <MaterialIcons name="skip-next" style={styles.playbackIcon} />
-        
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -118,19 +156,21 @@ const styles = StyleSheet.create({
   },
   progressBar: {
     flex: 1,
-    height: 2,
-    backgroundColor: '#888',
+    height: 4,
+    backgroundColor: '#444',
     marginHorizontal: 10,
+    borderRadius: 2,
   },
   progress: {
-    width: '20%', // Example progress
-    height: '100%',
-    backgroundColor: '#fff',
+    height: 4,
+    width: '25%', // Example progress percentage
+    backgroundColor: '#1DB954',
+    borderRadius: 2,
   },
   playbackControls: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    width: '60%',
+    width: '80%',
     marginTop: 20,
   },
   playbackIcon: {

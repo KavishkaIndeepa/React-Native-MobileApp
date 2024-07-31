@@ -19,15 +19,15 @@ const HomeScreen: React.FC = () => {
           let iconName: string = '';
 
           switch (route.name) {
-            case 'Favorites':
-              iconName = focused ? 'heart' : 'heart-outline';
+            case 'Songs':
+              iconName = focused ? 'musical-notes' : 'musical-notes-outline';
               break;
             case 'Playlists':
               iconName = focused ? 'list' : 'list-outline';
               break;
-            case 'Songs':
-              iconName = focused ? 'musical-notes' : 'musical-notes-outline';
-              break;
+            case 'Favorites':
+                iconName = focused ? 'heart' : 'heart-outline';
+                break;
             case 'Artists':
               iconName = focused ? 'people' : 'people-outline';
               break;

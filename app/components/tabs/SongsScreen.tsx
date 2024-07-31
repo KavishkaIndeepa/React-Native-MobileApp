@@ -75,6 +75,13 @@ const SongsScreen: React.FC = () => {
     }
   };
 
+  const playPreviousSong = () => {
+    if (currentSongIndex !== null) {
+      const prevIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+      playSong(prevIndex);
+    }
+  };
+
   const handlePlayPause = () => {
     if (isPlaying) {
       pause();
@@ -109,14 +116,6 @@ const SongsScreen: React.FC = () => {
           </TouchableOpacity>
         )}
       />
-      <View style={styles.playbackControls}>
-        <TouchableOpacity onPress={playNextSong}>
-          <Text style={styles.controlButton}>Skip Next</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handlePlayPause}>
-          <Text style={styles.controlButton}>{isPlaying ? 'Pause' : 'Play'}</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };
@@ -164,15 +163,6 @@ const styles = StyleSheet.create({
   songDetails: {
     color: '#888',
     fontSize: 12,
-  },
-  playbackControls: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 20,
-  },
-  controlButton: {
-    color: '#fff',
-    fontSize: 16,
   },
 });
 
