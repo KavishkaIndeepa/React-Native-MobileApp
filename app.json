@@ -4,11 +4,11 @@
     "slug": "my-music",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/music-boy.jpg",
     "scheme": "music-player",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/loader.gif",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,9 +17,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/loader.gif",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.yourcompany.my-music"
     },
     "web": {
       "bundler": "metro",

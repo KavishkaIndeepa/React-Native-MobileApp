@@ -4,6 +4,8 @@ import * as MediaLibrary from 'expo-media-library';
 import { Audio } from 'expo-av';
 import { useMusicPlayer } from './MusicPlayerContext';
 
+const defaultSongImage = require('../../../assets/images/music-boy.jpg');
+
 const SongsScreen: React.FC = () => {
   const [songs, setSongs] = useState<MediaLibrary.Asset[]>([]);
   const sound = useRef<Audio.Sound | null>(null);
@@ -64,7 +66,7 @@ const SongsScreen: React.FC = () => {
           >
             <View style={styles.songInfo}>
               <Image
-                source={{ uri: item.uri }} // Placeholder image for now
+                source={item.uri ? { uri: item.uri } : defaultSongImage}
                 style={styles.songImage}
               />
               <View style={styles.textContainer}>
@@ -72,7 +74,6 @@ const SongsScreen: React.FC = () => {
                 <Text style={styles.songDetails}>Duration: {Math.floor(item.duration / 60)}:{Math.floor(item.duration % 60).toString().padStart(2, '0')}</Text>
               </View>
             </View>
-            {/* <Text style={styles.menuButton}>⋮</Text> */}
           </TouchableOpacity>
         )}
       />

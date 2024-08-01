@@ -57,9 +57,15 @@ const PlaylistsScreen: React.FC = () => {
     <View style={styles.container}>
       <Image source={{ uri: currentSong.uri }} style={styles.currentSongImage} />
       <View style={styles.textContainer}>
-        <Text style={styles.currentSongTitle}>{currentSong.filename}</Text>
-        <Text style={styles.currentSongArtist}>Artist Name</Text>
-        <Text style={styles.currentSongAlbum}>Album Name</Text>
+        <Text style={styles.currentSongTitle} numberOfLines={1} ellipsizeMode="tail">
+          {currentSong.filename}
+        </Text>
+        <Text style={styles.currentSongArtist} numberOfLines={1} ellipsizeMode="tail">
+          Artist Name
+        </Text>
+        <Text style={styles.currentSongAlbum} numberOfLines={1} ellipsizeMode="tail">
+          Album Name
+        </Text>
       </View>
       <View style={styles.controls}>
         <TouchableOpacity onPress={handleFavoriteToggle}>
@@ -101,6 +107,7 @@ const styles = StyleSheet.create({
   textContainer: {
     alignItems: 'center',
     marginTop: 20,
+    width: '80%',
   },
   noSongText: {
     color: '#fff',
