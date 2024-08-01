@@ -6,10 +6,8 @@ import { useMusicPlayer } from './MusicPlayerContext';
 
 const SongsScreen: React.FC = () => {
   const [songs, setSongs] = useState<MediaLibrary.Asset[]>([]);
-  const [currentSongIndex, setCurrentSongIndex] = useState<number | null>(null);
   const sound = useRef<Audio.Sound | null>(null);
-  //@ts-ignore
-  const { setCurrentSong, isPlaying, play, pause } = useMusicPlayer();
+  const { setCurrentSong, isPlaying, play, pause, playSong, currentSong } = useMusicPlayer();
 
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -44,44 +42,6 @@ const SongsScreen: React.FC = () => {
     setSongs(media.assets);
   };
 
-  const playSong = async (index: number) => {
-    if (sound.current) {
-      await sound.current.unloadAsync();
-    }
-
-    const song = songs[index];
-    const { sound: newSound } = await Audio.Sound.createAsync(
-      { uri: song.uri },
-      { shouldPlay: true }
-    );
-
-    newSound.setOnPlaybackStatusUpdate((status) => {
-      //@ts-ignore
-      if (status.didJustFinish) {
-        playNextSong();
-      }
-    });
-
-    sound.current = newSound;
-    setCurrentSongIndex(index);
-    setCurrentSong(song);
-    play();
-  };
-
-  const playNextSong = () => {
-    if (currentSongIndex !== null) {
-      const nextIndex = (currentSongIndex + 1) % songs.length;
-      playSong(nextIndex);
-    }
-  };
-
-  const playPreviousSong = () => {
-    if (currentSongIndex !== null) {
-      const prevIndex = (currentSongIndex - 1 + songs.length) % songs.length;
-      playSong(prevIndex);
-    }
-  };
-
   const handlePlayPause = () => {
     if (isPlaying) {
       pause();
@@ -99,8 +59,8 @@ const SongsScreen: React.FC = () => {
         keyExtractor={(item) => item.id}
         renderItem={({ item, index }) => (
           <TouchableOpacity
-            style={[styles.item, currentSongIndex === index && styles.currentSong]}
-            onPress={() => playSong(index)}
+            style={[styles.item, currentSong?.id === item.id && styles.currentSong]}
+            onPress={() => playSong(item)}
           >
             <View style={styles.songInfo}>
               <Image
@@ -108,7 +68,7 @@ const SongsScreen: React.FC = () => {
                 style={styles.songImage}
               />
               <View style={styles.textContainer}>
-                <Text style={[styles.songTitle, currentSongIndex === index && styles.currentSongTitle]}>{item.filename}</Text>
+                <Text style={[styles.songTitle, currentSong?.id === item.id && styles.currentSongTitle]}>{item.filename}</Text>
                 <Text style={styles.songDetails}>Duration: {Math.floor(item.duration / 60)}:{Math.floor(item.duration % 60).toString().padStart(2, '0')}</Text>
               </View>
             </View>

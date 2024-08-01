@@ -2,12 +2,24 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { useMusicPlayer } from './MusicPlayerContext';
-//@ts-ignore
+// @ts-ignore
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 
 const PlaylistsScreen: React.FC = () => {
-  const { currentSong, play, pause, isPlaying, setCurrentSong, addToFavorites, removeFromFavorites, favorites } = useMusicPlayer();
+  const {
+    currentSong,
+    play,
+    pause,
+    isPlaying,
+    setCurrentSong,
+    playNextSong,
+    playPreviousSong,
+    favorites,
+    addToFavorites,
+    removeFromFavorites,
+    songs,
+  } = useMusicPlayer();
   const navigation = useNavigation();
 
   const handlePlayPause = () => {
@@ -15,24 +27,6 @@ const PlaylistsScreen: React.FC = () => {
       pause();
     } else {
       play();
-    }
-  };
-
-  const playNextSong = () => {
-    if (currentSong) {
-      //@ts-ignore
-      const nextIndex = (songs.findIndex((song) => song.id === currentSong.id) + 1) % songs.length;
-      //@ts-ignore
-      playSong(nextIndex);
-    }
-  };
-
-  const playPreviousSong = () => {
-    if (currentSong) {
-      //@ts-ignore
-      const prevIndex = (songs.findIndex((song) => song.id === currentSong.id) - 1 + songs.length) % songs.length;
-      //@ts-ignore
-      playSong(prevIndex);
     }
   };
 

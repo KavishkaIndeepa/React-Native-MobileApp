@@ -40,9 +40,10 @@ const HomeScreen: React.FC = () => {
         headerShown: false, // Hide the header for all tab screens
       })}
     >
-      <Tab.Screen name="Favorites" component={FavoritesScreen} />
-      <Tab.Screen name="Playlists" component={PlaylistsScreen} />
+      
       <Tab.Screen name="Songs" component={SongsScreen} />
+      <Tab.Screen name="Playlists" component={PlaylistsScreen} />
+      <Tab.Screen name="Favorites" component={FavoritesScreen} />
       <Tab.Screen name="Artists" component={ArtistsScreen} />
     </Tab.Navigator>
   );
