@@ -1,38 +1,38 @@
 {
-  "expo": {
-    "name": "my-music",
-    "slug": "my-music",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/images/music-boy.jpg",
-    "scheme": "music-player",
-    "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/images/loader.gif",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/loader.gif",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.yourcompany.my-music"
-    },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
-    },
-    "plugins": [
-      "expo-router"
-    ],
-    "experiments": {
-      "typedRoutes": true,
-      "tsconfigPaths": true
-    }
-  }
+	"expo": {
+		"name": "my-music",
+		"slug": "my-music",
+		"version": "1.0.0",
+		"orientation": "portrait",
+		"icon": "./assets/images/icon.png",
+		"scheme": "music-player",
+		"userInterfaceStyle": "automatic",
+		"splash": {
+			"image": "./assets/images/splash.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#ffffff"
+		},
+		"ios": {
+			"supportsTablet": true
+		},
+		"android": {
+			"adaptiveIcon": {
+				"foregroundImage": "./assets/images/adaptive-icon.png",
+				"backgroundColor": "#ffffff"
+			},
+			"package":"../my-music/app"
+		},
+		"web": {
+			"bundler": "metro",
+			"output": "static",
+			"favicon": "./assets/images/favicon.png"
+		},
+		"plugins": [
+			"expo-router"
+		],
+		"experiments": {
+			"typedRoutes": true,
+			"tsconfigPaths": true
+		}
+	}
 }
