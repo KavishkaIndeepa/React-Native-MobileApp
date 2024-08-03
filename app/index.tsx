@@ -17,6 +17,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 export default function index() {
 
 return (
+  //@ts-ignore
   <MusicPlayerProvider>
   <SafeAreaProvider>
     <Stack.Navigator initialRouteName="Start">
